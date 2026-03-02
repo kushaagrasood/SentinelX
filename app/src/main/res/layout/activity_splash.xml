@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0A1A">
+
+    <View
+        android:id="@+id/glowCircle"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:background="@drawable/splash_glow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/splashAppName"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <ImageView
+        android:id="@+id/splashShield"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/ic_shield"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/splashAppName"
+        android:layout_marginBottom="32dp"/>
+
+    <TextView
+        android:id="@+id/splashAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SentinelX"
+        android:textColor="#00E5FF"
+        android:textSize="44sp"
+        android:fontFamily="sans-serif-thin"
+        android:letterSpacing="0.25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splashShield"
+        app:layout_constraintBottom_toTopOf="@id/splashSubtitle"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/splashSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Real-Time Privacy Guardian"
+        android:textColor="#66FFFFFF"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif-light"
+        android:letterSpacing="0.12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splashAppName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginBottom="24dp"/>
+
+    <View
+        android:id="@+id/splashDivider"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
+        android:background="#4400E5FF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splashSubtitle"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/splashCredit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Made at HackNdroid 2.0 by PaneerParathe"
+        android:textColor="#33FFFFFF"
+        android:textSize="11sp"
+        android:fontFamily="sans-serif"
+        android:letterSpacing="0.08"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="36dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
