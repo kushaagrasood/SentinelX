@@ -2,8 +2,6 @@ package com.sentinelx.ui
 
 import com.sentinelx.R
 import android.content.Intent
-import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -15,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sentinelx.shared.*
+import com.sentinelx.data.PrivacyMonitorService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,8 +39,6 @@ class MainActivity : AppCompatActivity() {
         recycler.layoutManager = LinearLayoutManager(this)
         tvLoading.text = "🔍 Scanning apps..."
 
-        // TODO: uncomment when Member 2 (AppProcessor) and Member 1 (AppScanner) are merged
-        /*
         lifecycleScope.launch {
             val startTime = System.currentTimeMillis()
 
@@ -68,25 +65,27 @@ class MainActivity : AppCompatActivity() {
             val currentSession = ScanSession.create(apps, scanDuration)
             updateLastScanCard(currentSession)
 
-            // ── ScanDiff banner ──
-            // val previousSession = loadPreviousSession()  // from SharedPrefs/Room
-            // if (previousSession != null) {
-            //     val diff = ScanDiff.compute(previousSession, currentSession)
-            //     showScanDiffBanner(diff)
-            // }
-            // saveScanSession(currentSession)
+             //── ScanDiff banner ──
+             val previousSession = loadPreviousSession()
+             if (previousSession != null) {
+                 val diff = ScanDiff.compute(previousSession, currentSession)
+                 showScanDiffBanner(diff)
+             }
+             saveScanSession(currentSession)
 
-            // ── Recent Activity ──
-            // val recentEvents = PrivacyMonitorService.getRecentEvents(10)
-            // showRecentActivity(recentEvents)
+             //── Recent Activity ──
+             val recentEvents = PrivacyMonitorService.getRecentEvents(10)
+             showRecentActivity(recentEvents)
         }
-        */
+    }
 
-        // PLACEHOLDER — remove when Member 2 is ready
-        tvLoading.text = "⏳ Waiting for scan modules..."
-        tvHigh.text = "0"
-        tvMed.text  = "0"
-        tvLow.text  = "0"
+    private fun loadPreviousSession(): ScanSession? {
+        // Simple implementation using SharedPreferences or a database could go here
+        return null
+    }
+
+    private fun saveScanSession(session: ScanSession) {
+        // Implementation to save session
     }
 
     // ── Last Scan Card ──
@@ -148,10 +147,6 @@ class MainActivity : AppCompatActivity() {
 
     // ── Export full report ──
     private fun exportFullReport() {
-        // TODO: wire up when Member 2 is merged
-        // val report = AppProcessor.generateReport(apps, recentEvents)
-        // val text = report.toShareableText()
-
         val placeholderText = "SentinelX Privacy Report\n\nRun a full scan first to generate report."
         val shareIntent = Intent(Intent.ACTION_SEND)
             .setType("text/plain")

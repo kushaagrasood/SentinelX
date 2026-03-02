@@ -36,7 +36,7 @@ data class AlertConfig(
         val hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)
         return if (quietHourStart > quietHourEnd) {
             // Wraps midnight e.g. 23:00 to 07:00
-            hour >= quietHourStart || hour < quietHourEnd
+            hour !in quietHourEnd..<quietHourStart
         } else {
             hour in quietHourStart until quietHourEnd
         }
