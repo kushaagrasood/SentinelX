@@ -7,5 +7,7 @@ data class RawAppData(
     val appName: String,
     val icon: Drawable?,
     val permissions: List<String>,
-    val grantedPermissions: List<String>
+    val grantedPermissions: List<String>,
+    val firstInstallTime: Long,       // ms timestamp
+    val lastUpdateTime: Long          // ms timestamp — used for "recently updated" flag
 )
