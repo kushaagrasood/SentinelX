@@ -49,6 +49,7 @@ object AppProcessor {
 
         val summary = RiskSummary(
             totalApps = processedApps.size,
+            criticalCount = processedApps.count { it.riskLevel == Constants.RISK_CRITICAL }, // ← ADD
             highCount = processedApps.count { it.riskLevel == Constants.RISK_HIGH },
             mediumCount = processedApps.count { it.riskLevel == Constants.RISK_MEDIUM },
             lowCount = processedApps.count { it.riskLevel == Constants.RISK_LOW }

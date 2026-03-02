@@ -1,5 +1,6 @@
 package com.sentinelx.ui
 
+import android.annotation.SuppressLint
 import com.sentinelx.R
 import android.content.Intent
 import android.os.Bundle
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         loadApps()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun loadApps() {
         val recycler  = findViewById<RecyclerView>(R.id.recyclerView)
         val tvLoading = findViewById<TextView>(R.id.tvLoading)
@@ -45,11 +47,15 @@ class MainActivity : AppCompatActivity() {
             val rawApps = withContext(Dispatchers.IO) {
                 com.sentinelx.data.AppScanner(this@MainActivity).getInstalledApps()
             }
-            val (apps, summary) = com.sentinelx.logic.AppProcessor.processApps(rawApps)
+            // CHANGED THIS (add withContext wrapper):
+            val (apps, summary) = withContext(Dispatchers.Default) {
+                com.sentinelx.logic.AppProcessor.processApps(rawApps)
+            }
             val scanDuration = System.currentTimeMillis() - startTime
 
             tvLoading.text = ""
-            tvHigh.text = "${summary.highCount}"
+            // CHANGED THIS (combine critical+high in the HIGH card):
+            tvHigh.text = "${summary.criticalCount + summary.highCount}"
             tvMed.text  = "${summary.mediumCount}"
             tvLow.text  = "${summary.lowCount}"
 
