@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.SentinelX" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#00E5FF</item>
-        <item name="colorPrimaryVariant">#0A0A1A</item>
-        <item name="colorOnPrimary">#000000</item>
-        <item name="android:windowBackground">#0A0A1A</item>
-        <item name="android:statusBarColor">#0A0A1A</item>
-        <item name="android:navigationBarColor">#0A0A1A</item>
+    <style name="Theme.SentinelX" parent="Theme.Material3.DayNight.NoActionBar">
     </style>
-
-    <!-- Custom splash — no SplashScreen API -->
-    <style name="Theme.SentinelX.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">#0A0A1A</item>
-        <item name="android:statusBarColor">#0A0A1A</item>
-        <item name="android:navigationBarColor">#0A0A1A</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
 </resources>
