@@ -4,12 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0A0A1A">
+    android:background="#0A0A1A"
+    android:fitsSystemWindows="true">
 
+    <!-- Glow behind shield -->
     <View
         android:id="@+id/glowCircle"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:background="@drawable/splash_glow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,33 +19,36 @@
         app:layout_constraintBottom_toTopOf="@id/splashAppName"
         app:layout_constraintVertical_chainStyle="packed"/>
 
+    <!-- Shield icon -->
     <ImageView
         android:id="@+id/splashShield"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/ic_shield"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/splashAppName"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="28dp"/>
 
+    <!-- App name -->
     <TextView
         android:id="@+id/splashAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SentinelX"
         android:textColor="#00E5FF"
-        android:textSize="44sp"
+        android:textSize="42sp"
         android:fontFamily="sans-serif-thin"
-        android:letterSpacing="0.25"
+        android:letterSpacing="0.2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/splashShield"
         app:layout_constraintBottom_toTopOf="@id/splashSubtitle"
         android:layout_marginBottom="8dp"/>
 
+    <!-- Subtitle -->
     <TextView
         android:id="@+id/splashSubtitle"
         android:layout_width="wrap_content"
@@ -56,20 +61,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/splashAppName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@id/splashDivider"
         android:layout_marginBottom="24dp"/>
 
+    <!-- Cyan divider line -->
     <View
         android:id="@+id/splashDivider"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="1dp"
         android:background="#4400E5FF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/splashSubtitle"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
 
+    <!-- Credit pinned to bottom -->
     <TextView
         android:id="@+id/splashCredit"
         android:layout_width="wrap_content"
