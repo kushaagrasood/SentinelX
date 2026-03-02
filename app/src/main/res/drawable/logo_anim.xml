@@ -1,0 +1,99 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="24dp"
+            android:height="24dp"
+            android:viewportWidth="24"
+            android:viewportHeight="24">
+
+            <group
+                android:name="glow_group"
+                android:pivotX="12"
+                android:pivotY="12"
+                android:scaleX="1.0"
+                android:scaleY="1.0">
+                <path
+                    android:name="glow_path"
+                    android:fillColor="#4000E5FF"
+                    android:pathData="M 12 1 L 21 5 L 21 11 C 21 16.55 17.16 21.74 12 23 C 6.84 21.74 3 16.55 3 11 L 3 5 L 12 1 Z" />
+            </group>
+
+            <group
+                android:pivotX="12"
+                android:pivotY="12"
+                android:scaleX="0.85"
+                android:scaleY="0.85">
+
+                <path
+                    android:name="antennas"
+                    android:strokeColor="#77ed96"
+                    android:strokeWidth="2.5"
+                    android:strokeLineCap="round"
+                    android:pathData="M 8.5 6 L 4.5 0 M 15.5 6 L 19.5 0" />
+
+                <path
+                    android:name="shield_face"
+                    android:fillColor="#77ed96"
+                    android:strokeColor="#FFFFFF"
+                    android:strokeWidth="1.2"
+                    android:pathData="M 12 1 L 21 5 L 21 11 C 21 16.55 17.16 21.74 12 23 C 6.84 21.74 3 16.55 3 11 L 3 5 L 12 1 Z" />
+
+                <path
+                    android:name="eyes"
+                    android:fillColor="#000"
+                    android:pathData="M 9 10 A 1 1 0 1 1 7 10 A 1 1 0 1 1 9 10 M 17 10 A 1 1 0 1 1 15 10 A 1 1 0 1 1 17 10" />
+            </group>
+        </vector>
+    </aapt:attr>
+
+    <target android:name="glow_group">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:duration="1500"
+                    android:valueFrom="1.0"
+                    android:valueTo="1.15"
+                    android:repeatCount="infinite"
+                    android:repeatMode="reverse"
+                    android:valueType="floatType" />
+                <objectAnimator
+                    android:propertyName="scaleY"
+                    android:duration="1500"
+                    android:valueFrom="1.0"
+                    android:valueTo="1.15"
+                    android:repeatCount="infinite"
+                    android:repeatMode="reverse"
+                    android:valueType="floatType" />
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="eyes">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="alpha"
+                android:duration="200"
+                android:startOffset="1000"
+                android:valueFrom="1"
+                android:valueTo="0"
+                android:repeatCount="infinite"
+                android:repeatMode="reverse"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+
+    <target android:name="shield_face">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="strokeWidth"
+                android:duration="1500"
+                android:valueFrom="1.2"
+                android:valueTo="1.8"
+                android:repeatCount="infinite"
+                android:repeatMode="reverse"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+</animated-vector>

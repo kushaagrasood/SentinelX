@@ -64,7 +64,7 @@ class PrivacyMonitorService : Service() {
 
     private fun buildPersistentNotification(): Notification =
         NotificationCompat.Builder(this, Constants.CHANNEL_ID_MONITOR)
-            .setSmallIcon(R.drawable.ic_shield)
+            .setSmallIcon(R.drawable.logo_plain)
             .setContentTitle("SentinelX is watching")
             .setContentText("Monitoring camera, mic & location activity")
             .setOngoing(true)
@@ -181,7 +181,7 @@ class PrivacyMonitorService : Service() {
         nm.notify(
             System.currentTimeMillis().toInt(),
             NotificationCompat.Builder(this, Constants.CHANNEL_ID_ALERT)
-                .setSmallIcon(R.drawable.ic_shield)
+                .setSmallIcon(R.drawable.logo_plain)
                 .setContentTitle("$emoji $permLabel Activated")
                 .setContentText("$appName is using $permLabel in background")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

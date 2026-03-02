@@ -24,7 +24,7 @@
         android:id="@+id/splashShield"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_shield"
+        android:src="@drawable/logo_anim"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
