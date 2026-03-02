@@ -36,6 +36,15 @@
         <activity android:name=".ui.DetailActivity" android:exported="false" android:theme="@style/Theme.SentinelX"/>
         <activity android:name=".ui.SettingsActivity" android:exported="false" android:theme="@style/Theme.SentinelX"/>
 
+        <service
+            android:name=".data.PrivacyMonitorService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="monitorPermissionUsage"/>
+        </service>
+
     </application>
 
 </manifest>

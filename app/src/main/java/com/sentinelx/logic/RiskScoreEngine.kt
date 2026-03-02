@@ -14,10 +14,10 @@ object RiskScoreEngine {
 
     fun determineRiskLevel(score: Int): String {
         return when {
-            score >= Constants.RISK_CRITICAL_THRESHOLD -> Constants.RISK_CRITICAL  // ← ADD THIS
-            score >= Constants.RISK_HIGH_THRESHOLD -> Constants.RISK_HIGH
-            score >= Constants.RISK_MEDIUM_THRESHOLD -> Constants.RISK_MEDIUM
-            else -> Constants.RISK_LOW
+            score >= Constants.RISK_CRITICAL_THRESHOLD -> Constants.RISK_CRITICAL
+            score >= Constants.RISK_HIGH_THRESHOLD     -> Constants.RISK_HIGH
+            score >= Constants.RISK_MEDIUM_THRESHOLD   -> Constants.RISK_MEDIUM
+            else                                       -> Constants.RISK_LOW
         }
     }
 
@@ -27,6 +27,12 @@ object RiskScoreEngine {
             .sortedByDescending { Constants.PERMISSION_WEIGHTS[it] ?: 0 }
             .take(3)
             .joinToString(", ") { it.substringAfterLast(".") }
-        return "Risk driven by: $topPerms (${sensitivePermissions.size} sensitive permissions total)"
+        val level = determineRiskLevel(score)
+        return when (level) {
+            Constants.RISK_CRITICAL -> "🚨 CRITICAL: This app has $score/100 risk. Top concerns: $topPerms"
+            Constants.RISK_HIGH     -> "🔴 HIGH RISK: Driven by $topPerms (${sensitivePermissions.size} sensitive permissions)"
+            Constants.RISK_MEDIUM   -> "🟠 MEDIUM: Uses $topPerms among ${sensitivePermissions.size} sensitive permissions"
+            else                    -> "🟢 LOW: ${sensitivePermissions.size} low-weight sensitive permission(s) detected"
+        }
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A0A1A">
@@ -8,31 +9,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:paddingBottom="32dp">
 
+        <!-- App Name -->
         <TextView
             android:id="@+id/tvDetailAppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="App Name"
-            android:textSize="28sp"
+            android:textSize="26sp"
             android:textStyle="bold"
-            android:textColor="#00E5FF" />
+            android:textColor="#00E5FF"
+            android:layout_marginBottom="4dp"/>
 
+        <!-- Package Name -->
         <TextView
             android:id="@+id/tvDetailPackage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="com.example.package"
-            android:textSize="14sp"
-            android:textColor="#88FFFFFF"
-            android:layout_marginBottom="24dp" />
+            android:textSize="12sp"
+            android:textColor="#55FFFFFF"
+            android:layout_marginBottom="20dp"/>
 
+        <!-- Risk Score Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#1A1A2E">
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#1A1A2E"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,37 +51,102 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Risk Score"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:text="RISK SCORE"
+                    android:textColor="#4400E5FF"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.15"
+                    android:layout_marginBottom="8dp"/>
 
                 <TextView
                     android:id="@+id/tvDetailRiskScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="85/100"
-                    android:textColor="#FF4444"
-                    android:textSize="36sp"
-                    android:textStyle="bold" />
+                    android:text="🟢 0/100  •  LOW"
+                    android:textColor="#44BB44"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvDetailExplanation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#AAFFFFFF"
+                    android:textSize="13sp"
+                    android:lineSpacingMultiplier="1.4"/>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Permissions"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/tvDetailPermissions"
+        <!-- Permissions Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#BBFFFFFF"
-            android:textSize="14sp"
-            android:text="No sensitive permissions detected." />
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#1A1A2E"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SENSITIVE PERMISSIONS"
+                    android:textColor="#4400E5FF"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.15"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView
+                    android:id="@+id/tvDetailPermissions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="13sp"
+                    android:lineSpacingMultiplier="1.5"
+                    android:text="No sensitive permissions detected."/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAppSettings"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="⚙️ App Settings"
+                android:textColor="#00E5FF"
+                android:textSize="13sp"
+                app:strokeColor="#00E5FF"
+                app:strokeWidth="1dp"
+                android:backgroundTint="#1A1A2E"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnShare"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="📤 Share Report"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                android:backgroundTint="#00E5FF"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

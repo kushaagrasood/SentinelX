@@ -1,14 +1,14 @@
 package com.sentinelx.shared
 
 import android.graphics.Color
-import androidx.core.graphics.toColorInt
+//import androidx.core.graphics.toColorInt -> NOT USED
 
 fun Int.toRiskColor(): Int {
     return when {
-        this >= Constants.RISK_CRITICAL_THRESHOLD -> "#CC0000".toColorInt()
-        this >= Constants.RISK_HIGH_THRESHOLD -> "#FF4444".toColorInt()
-        this >= Constants.RISK_MEDIUM_THRESHOLD -> "#FFA500".toColorInt()
-        else -> "#44BB44".toColorInt()
+        this >= Constants.RISK_CRITICAL_THRESHOLD -> Color.parseColor("#CC0000")
+        this >= Constants.RISK_HIGH_THRESHOLD     -> Color.parseColor("#FF4444")
+        this >= Constants.RISK_MEDIUM_THRESHOLD   -> Color.parseColor("#FFA500")
+        else                                      -> Color.parseColor("#44BB44")
     }
 }
 
