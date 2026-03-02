@@ -1,32 +1,29 @@
 package com.sentinelx.shared
 
-enum class PermissionCategory(val displayName: String, val emoji: String) {
-    LOCATION("Location", "📍"),
-    CAMERA("Camera", "📷"),
-    MICROPHONE("Microphone", "🎤"),
-    CONTACTS("Contacts", "👤"),
-    STORAGE("Storage", "💾"),
-    NETWORK("Network & Connectivity", "🌐"),
-    SENSORS("Body Sensors", "❤️"),
-    SYSTEM("System Level", "⚙️"),
-    UNKNOWN("Other", "❓")
+enum class PermissionCategory(val emoji: String) {
+    CAMERA("📷"),
+    MICROPHONE("🎤"),
+    LOCATION("📍"),
+    CONTACTS("👤"),
+    STORAGE("📁"),
+    SENSORS("🫀"),
+    SMS("💬"),
+    PHONE("📞"),
+    NETWORK("🌐"),
+    OTHER("🔒")
 }
 
 fun String.toPermissionCategory(): PermissionCategory {
     return when {
-        contains("LOCATION") || contains("location") -> PermissionCategory.LOCATION
-        contains("CAMERA") || contains("camera") -> PermissionCategory.CAMERA
-        contains("RECORD_AUDIO") || contains("record_audio") -> PermissionCategory.MICROPHONE
-        contains("CONTACTS") || contains("contacts") -> PermissionCategory.CONTACTS
-        contains("STORAGE") || contains("storage") || contains("MEDIA") -> PermissionCategory.STORAGE
-        contains("INTERNET") || contains("WIFI") || contains("BLUETOOTH") || contains("NFC") -> PermissionCategory.NETWORK
-        contains("SENSOR") || contains("BIOMETRIC") || contains("FINGERPRINT") || contains("ACTIVITY") -> PermissionCategory.SENSORS
-        contains("INSTALL") || contains("PHONE_STATE") || contains("CALL") || contains("SMS") -> PermissionCategory.SYSTEM
-        else -> PermissionCategory.UNKNOWN
+        contains("CAMERA") -> PermissionCategory.CAMERA
+        contains("RECORD_AUDIO") -> PermissionCategory.MICROPHONE
+        contains("LOCATION") -> PermissionCategory.LOCATION
+        contains("CONTACTS") -> PermissionCategory.CONTACTS
+        contains("STORAGE") || contains("EXTERNAL") -> PermissionCategory.STORAGE
+        contains("SENSORS") || contains("BIOMETRIC") || contains("FINGERPRINT") -> PermissionCategory.SENSORS
+        contains("SMS") -> PermissionCategory.SMS
+        contains("CALL") || contains("PHONE") -> PermissionCategory.PHONE
+        contains("INTERNET") || contains("WIFI") || contains("NETWORK") -> PermissionCategory.NETWORK
+        else -> PermissionCategory.OTHER
     }
-}
-
-fun List<String>.groupByCategory(): Map<PermissionCategory, List<String>> {
-    return this.groupBy { it.toPermissionCategory() }
-        .toSortedMap(compareBy { it.ordinal })
 }

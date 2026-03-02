@@ -1,15 +1,16 @@
 package com.sentinelx.shared
 
+enum class AnomalyType {
+    CAMERA_UNUSUAL_HOUR,
+    MIC_BACKGROUND_SPIKE,
+    LOCATION_EXCESSIVE,
+    NETWORK_SPIKE,
+    PERMISSION_ESCALATION
+}
+
 data class AnomalyEvent(
     val timestamp: Long,
     val type: AnomalyType,
-    val description: String
+    val description: String,
+    val packageName: String = ""
 )
-
-enum class AnomalyType {
-    CAMERA_UNUSUAL_HOUR,        // camera used between midnight and 6am
-    MIC_BACKGROUND_SPIKE,       // mic used while app was in background
-    LOCATION_EXCESSIVE,         // location accessed more than 20 times today
-    NETWORK_SPIKE,              // sudden large data transmission
-    PERMISSION_ESCALATION       // multiple new permissions granted recently
-}

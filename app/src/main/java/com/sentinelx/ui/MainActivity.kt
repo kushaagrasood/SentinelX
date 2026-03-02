@@ -48,47 +48,36 @@ class MainActivity : AppCompatActivity() {
             val (apps, summary) = com.sentinelx.logic.AppProcessor.processApps(rawApps)
             val scanDuration = System.currentTimeMillis() - startTime
 
-            // ── Update summary cards ──
             tvLoading.text = ""
             tvHigh.text = "${summary.highCount}"
             tvMed.text  = "${summary.mediumCount}"
             tvLow.text  = "${summary.lowCount}"
 
-            // ── Show app list ──
             recycler.adapter = AppListAdapter(apps) { app ->
                 val intent = Intent(this@MainActivity, DetailActivity::class.java)
                 intent.putExtra(DetailActivity.EXTRA_PACKAGE_NAME, app.packageName)
                 startActivity(intent)
             }
 
-            // ── Last Scan card ──
             val currentSession = ScanSession.create(apps, scanDuration)
             updateLastScanCard(currentSession)
 
-             //── ScanDiff banner ──
-             val previousSession = loadPreviousSession()
-             if (previousSession != null) {
-                 val diff = ScanDiff.compute(previousSession, currentSession)
-                 showScanDiffBanner(diff)
-             }
-             saveScanSession(currentSession)
+            val previousSession = loadPreviousSession()
+            if (previousSession != null) {
+                val diff = ScanDiff.compute(previousSession, currentSession)
+                showScanDiffBanner(diff)
+            }
+            saveScanSession(currentSession)
 
-             //── Recent Activity ──
-             val recentEvents = PrivacyMonitorService.getRecentEvents(10)
-             showRecentActivity(recentEvents)
+            val recentEvents = PrivacyMonitorService.getRecentEvents(10)
+            showRecentActivity(recentEvents)
         }
     }
 
-    private fun loadPreviousSession(): ScanSession? {
-        // Simple implementation using SharedPreferences or a database could go here
-        return null
-    }
+    private fun loadPreviousSession(): ScanSession? = null
 
-    private fun saveScanSession(session: ScanSession) {
-        // Implementation to save session
-    }
+    private fun saveScanSession(session: ScanSession) { }
 
-    // ── Last Scan Card ──
     fun updateLastScanCard(session: ScanSession) {
         val card = findViewById<View>(R.id.cardLastScan) ?: return
         card.visibility = View.VISIBLE
@@ -103,10 +92,9 @@ class MainActivity : AppCompatActivity() {
         tvScanDuration.text = "Scan took ${session.scanDurationMs}ms • ${session.apps.size} apps"
     }
 
-    // ── ScanDiff dismissable banner ──
     fun showScanDiffBanner(diff: ScanDiff) {
-        val banner = findViewById<androidx.cardview.widget.CardView>(R.id.cardScanDiff) ?: return
-        val tvDiff = findViewById<TextView>(R.id.tvScanDiffText) ?: return
+        val banner     = findViewById<androidx.cardview.widget.CardView>(R.id.cardScanDiff) ?: return
+        val tvDiff     = findViewById<TextView>(R.id.tvScanDiffText) ?: return
         val btnDismiss = findViewById<TextView>(R.id.btnDismissDiff) ?: return
 
         banner.visibility = View.VISIBLE
@@ -114,7 +102,6 @@ class MainActivity : AppCompatActivity() {
         btnDismiss.setOnClickListener { banner.visibility = View.GONE }
     }
 
-    // ── Recent Activity from PrivacyMonitorService ──
     fun showRecentActivity(events: List<MonitorEvent>) {
         val container = findViewById<LinearLayout>(R.id.recentActivityContainer) ?: return
         val section   = findViewById<View>(R.id.sectionRecentActivity) ?: return
@@ -145,7 +132,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ── Export full report ──
     private fun exportFullReport() {
         val placeholderText = "SentinelX Privacy Report\n\nRun a full scan first to generate report."
         val shareIntent = Intent(Intent.ACTION_SEND)

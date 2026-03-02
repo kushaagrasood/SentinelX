@@ -13,10 +13,10 @@ data class PermissionRisk(
     val category: PermissionCategory,
     val weight: Int,
     val dangerLevel: DangerLevel,
-    val explanation: String,            // why this is risky
-    val realWorldExample: String,       // e.g. "Used by spyware to record conversations"
-    val isRuntime: Boolean,             // true = user must explicitly grant
-    val canBeBackground: Boolean        // true = can activate without user knowing
+    val explanation: String,
+    val realWorldExample: String,
+    val isRuntime: Boolean,
+    val canBeBackground: Boolean
 ) {
     companion object {
         val ALL: Map<String, PermissionRisk> = mapOf(
@@ -67,7 +67,7 @@ data class PermissionRisk(
             "android.permission.READ_SMS" to PermissionRisk(
                 permissionString = "android.permission.READ_SMS",
                 displayName = "Read SMS",
-                category = PermissionCategory.SYSTEM,
+                category = PermissionCategory.SMS,
                 weight = 20,
                 dangerLevel = DangerLevel.DANGEROUS,
                 explanation = "Reads all your text messages including OTPs and private chats.",
@@ -100,7 +100,7 @@ data class PermissionRisk(
             "android.permission.REQUEST_INSTALL_PACKAGES" to PermissionRisk(
                 permissionString = "android.permission.REQUEST_INSTALL_PACKAGES",
                 displayName = "Install Packages",
-                category = PermissionCategory.SYSTEM,
+                category = PermissionCategory.OTHER,
                 weight = 20,
                 dangerLevel = DangerLevel.DANGEROUS,
                 explanation = "Allows the app to silently install other apps on your device.",

@@ -4,10 +4,10 @@ data class MonitorEvent(
     val timestamp: Long,
     val packageName: String,
     val appName: String,
-    val permissionTriggered: String,    // e.g. "android.permission.CAMERA"
-    val wasBackground: Boolean,         // true if app was not in foreground
-    val durationMs: Long,               // how long the permission was active
-    val category: PermissionCategory    // auto-derived from permissionTriggered
+    val permissionTriggered: String,
+    val wasBackground: Boolean,
+    val durationMs: Long,
+    val category: PermissionCategory
 ) {
     companion object {
         fun create(

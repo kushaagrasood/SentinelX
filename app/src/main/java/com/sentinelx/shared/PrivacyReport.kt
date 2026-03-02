@@ -6,10 +6,10 @@ data class PrivacyReport(
     val criticalApps: List<AppInfo>,
     val highRiskApps: List<AppInfo>,
     val totalAnomalies: Int,
-    val recentMonitorEvents: List<MonitorEvent>,   // last 50 events from service
-    val autoRevokeSuggestions: List<AppInfo>,       // apps where autoRevokeSuggested = true
-    val topPermissionsByUsage: Map<String, Long>,   // permission → total ms used across all apps
-    val deviceRiskScore: Int,                       // 0–100 overall device score
+    val recentMonitorEvents: List<MonitorEvent>,
+    val autoRevokeSuggestions: List<AppInfo>,
+    val topPermissionsByUsage: Map<String, Long>,
+    val deviceRiskScore: Int,
     val deviceRiskLevel: String
 ) {
     fun toShareableText(): String {
