@@ -152,19 +152,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupQuickControls() {
         findViewById<Button>(R.id.btnToggleCamera).setOnClickListener {
-            try {
-                startActivity(Intent("android.settings.CAMERA_SETTINGS"))
-            } catch (e: Exception) {
-                startActivity(Intent(Settings.ACTION_PRIVACY_SETTINGS))
-            }
+            startActivity(Intent(Settings.ACTION_PRIVACY_SETTINGS))
+            android.widget.Toast.makeText(this, "Tap 'Privacy controls' to manage Camera", android.widget.Toast.LENGTH_LONG).show()
         }
 
         findViewById<Button>(R.id.btnToggleMic).setOnClickListener {
-            try {
-                startActivity(Intent("android.settings.MICROPHONE_SETTINGS"))
-            } catch (e: Exception) {
-                startActivity(Intent(Settings.ACTION_PRIVACY_SETTINGS))
-            }
+            startActivity(Intent(Settings.ACTION_PRIVACY_SETTINGS))
+            android.widget.Toast.makeText(this, "Tap 'Privacy controls' to manage Microphone", android.widget.Toast.LENGTH_LONG).show()
         }
 
         findViewById<Button>(R.id.btnToggleLocation).setOnClickListener {
