@@ -1,11 +1,12 @@
 package com.sentinelx.ui
 
-import com.sentinelx.R
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.switchmaterial.SwitchMaterial
+import com.sentinelx.R
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -13,43 +14,55 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        setupToolbar()
+        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.settingsToolbar)
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener { finish() }
+
+        loadSavedPrefs()
+        setupTimePickers()
         setupSaveButton()
     }
 
-    private fun setupToolbar() {
-        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.settingsToolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { finish() }
+    private fun loadSavedPrefs() {
+        val prefs = getSharedPreferences("sentinelx_prefs", MODE_PRIVATE)
+        findViewById<SwitchMaterial>(R.id.switchCamera).isChecked        = prefs.getBoolean("alert_camera", true)
+        findViewById<SwitchMaterial>(R.id.switchMic).isChecked           = prefs.getBoolean("alert_mic", true)
+        findViewById<SwitchMaterial>(R.id.switchLocation).isChecked      = prefs.getBoolean("alert_location", true)
+        findViewById<SwitchMaterial>(R.id.switchBackgroundOnly).isChecked = prefs.getBoolean("background_only", true)
+        findViewById<SwitchMaterial>(R.id.switchQuietHours).isChecked    = prefs.getBoolean("quiet_hours", false)
+        findViewById<SwitchMaterial>(R.id.switchVibrate).isChecked       = prefs.getBoolean("vibrate", true)
+        findViewById<SwitchMaterial>(R.id.switchSound).isChecked         = prefs.getBoolean("sound", true)
+        findViewById<TextView>(R.id.tvQuietStart).text = prefs.getString("quiet_start", "23:00")
+        findViewById<TextView>(R.id.tvQuietEnd).text   = prefs.getString("quiet_end", "07:00")
+    }
+
+    private fun setupTimePickers() {
+        fun pickTime(tv: TextView, defaultHour: Int) {
+            tv.setOnClickListener {
+                val current = tv.text.toString().split(":").map { it.toIntOrNull() ?: 0 }
+                TimePickerDialog(this, { _, h, m ->
+                    tv.text = "%02d:%02d".format(h, m)
+                }, current[0], current[1], true).show()
+            }
+        }
+        pickTime(findViewById(R.id.tvQuietStart), 23)
+        pickTime(findViewById(R.id.tvQuietEnd), 7)
     }
 
     private fun setupSaveButton() {
-        val switchCamera          = findViewById<SwitchMaterial>(R.id.switchCamera)
-        val switchMic             = findViewById<SwitchMaterial>(R.id.switchMic)
-        val switchLocation        = findViewById<SwitchMaterial>(R.id.switchLocation)
-        val switchBackgroundOnly  = findViewById<SwitchMaterial>(R.id.switchBackgroundOnly)
-        val switchQuietHours      = findViewById<SwitchMaterial>(R.id.switchQuietHours)
-        val switchVibrate         = findViewById<SwitchMaterial>(R.id.switchVibrate)
-        val switchSound           = findViewById<SwitchMaterial>(R.id.switchSound)
-        val tvQuietStart          = findViewById<TextView>(R.id.tvQuietStart)
-        val tvQuietEnd            = findViewById<TextView>(R.id.tvQuietEnd)
-
         findViewById<MaterialButton>(R.id.btnSaveSettings).setOnClickListener {
-            // Save settings to SharedPreferences
             val prefs = getSharedPreferences("sentinelx_prefs", MODE_PRIVATE)
             prefs.edit()
-                .putBoolean("alert_camera", switchCamera.isChecked)
-                .putBoolean("alert_mic", switchMic.isChecked)
-                .putBoolean("alert_location", switchLocation.isChecked)
-                .putBoolean("background_only", switchBackgroundOnly.isChecked)
-                .putBoolean("quiet_hours", switchQuietHours.isChecked)
-                .putString("quiet_start", tvQuietStart.text.toString())
-                .putString("quiet_end", tvQuietEnd.text.toString())
-                .putBoolean("vibrate", switchVibrate.isChecked)
-                .putBoolean("sound", switchSound.isChecked)
+                .putBoolean("alert_camera",    findViewById<SwitchMaterial>(R.id.switchCamera).isChecked)
+                .putBoolean("alert_mic",       findViewById<SwitchMaterial>(R.id.switchMic).isChecked)
+                .putBoolean("alert_location",  findViewById<SwitchMaterial>(R.id.switchLocation).isChecked)
+                .putBoolean("background_only", findViewById<SwitchMaterial>(R.id.switchBackgroundOnly).isChecked)
+                .putBoolean("quiet_hours",     findViewById<SwitchMaterial>(R.id.switchQuietHours).isChecked)
+                .putString("quiet_start",      findViewById<TextView>(R.id.tvQuietStart).text.toString())
+                .putString("quiet_end",        findViewById<TextView>(R.id.tvQuietEnd).text.toString())
+                .putBoolean("vibrate",         findViewById<SwitchMaterial>(R.id.switchVibrate).isChecked)
+                .putBoolean("sound",           findViewById<SwitchMaterial>(R.id.switchSound).isChecked)
                 .apply()
-
             finish()
         }
     }

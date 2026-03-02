@@ -10,28 +10,45 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:paddingBottom="32dp">
+        android:paddingBottom="40dp">
 
-        <!-- App Name -->
+        <!-- App Name + Package -->
         <TextView
             android:id="@+id/tvDetailAppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="App Name"
+            android:textColor="#00E5FF"
             android:textSize="26sp"
             android:textStyle="bold"
-            android:textColor="#00E5FF"
             android:layout_marginBottom="4dp"/>
 
-        <!-- Package Name -->
-        <TextView
-            android:id="@+id/tvDetailPackage"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="com.example.package"
-            android:textSize="12sp"
-            android:textColor="#55FFFFFF"
-            android:layout_marginBottom="20dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/tvDetailPackage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#55FFFFFF"
+                android:textSize="12sp"/>
+
+            <!-- Trust source badge -->
+            <TextView
+                android:id="@+id/tvTrustBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:background="#22FFFFFF"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"/>
+
+        </LinearLayout>
 
         <!-- Risk Score Card -->
         <androidx.cardview.widget.CardView
@@ -61,20 +78,27 @@
                     android:id="@+id/tvDetailRiskScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🟢 0/100  •  LOW"
-                    android:textColor="#44BB44"
                     android:textSize="28sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginBottom="10dp"/>
 
                 <TextView
                     android:id="@+id/tvDetailExplanation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
                     android:textColor="#AAFFFFFF"
                     android:textSize="13sp"
-                    android:lineSpacingMultiplier="1.4"/>
+                    android:lineSpacingMultiplier="1.5"/>
+
+                <!-- Network usage row -->
+                <TextView
+                    android:id="@+id/tvNetworkUsage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#66FFFFFF"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -83,7 +107,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
             app:cardBackgroundColor="#1A1A2E"
             app:cardCornerRadius="14dp"
             app:cardElevation="4dp">
@@ -109,8 +133,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#CCFFFFFF"
                     android:textSize="13sp"
-                    android:lineSpacingMultiplier="1.5"
-                    android:text="No sensitive permissions detected."/>
+                    android:lineSpacingMultiplier="1.6"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -119,8 +142,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAppSettings"
@@ -141,7 +163,7 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:text="📤 Share Report"
+                android:text="📤 Share"
                 android:textColor="#000000"
                 android:textSize="13sp"
                 android:backgroundTint="#00E5FF"/>
