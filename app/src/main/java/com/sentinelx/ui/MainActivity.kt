@@ -2,15 +2,19 @@ package com.sentinelx.ui
 
 import com.sentinelx.R
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sentinelx.shared.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupQuickControls()
+        setupToolbarButtons()
         loadApps()
     }
 
@@ -35,31 +40,133 @@ class MainActivity : AppCompatActivity() {
         recycler.layoutManager = LinearLayoutManager(this)
         tvLoading.text = "🔍 Scanning apps..."
 
-        // TODO: uncomment this block after Member 2 finishes AppProcessor
+        // TODO: uncomment when Member 2 (AppProcessor) and Member 1 (AppScanner) are merged
         /*
         lifecycleScope.launch {
-            val processor = com.sentinelx.logic.AppProcessor(this@MainActivity)
-            val apps      = withContext(Dispatchers.IO) { processor.getProcessedApps() }
-            val summary   = processor.getSummary(apps)
+            val startTime = System.currentTimeMillis()
 
+            val rawApps = withContext(Dispatchers.IO) {
+                com.sentinelx.data.AppScanner(this@MainActivity).getInstalledApps()
+            }
+            val (apps, summary) = com.sentinelx.logic.AppProcessor.processApps(rawApps)
+            val scanDuration = System.currentTimeMillis() - startTime
+
+            // ── Update summary cards ──
             tvLoading.text = ""
-            tvHigh.text = "🔴 ${summary.highCount}\nHIGH"
-            tvMed.text  = "🟠 ${summary.medCount}\nMEDIUM"
-            tvLow.text  = "🟢 ${summary.lowCount}\nLOW"
+            tvHigh.text = "${summary.highCount}"
+            tvMed.text  = "${summary.mediumCount}"
+            tvLow.text  = "${summary.lowCount}"
 
+            // ── Show app list ──
             recycler.adapter = AppListAdapter(apps) { app ->
                 val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                intent.putExtra("extra_package_name", app.packageName)
+                intent.putExtra(DetailActivity.EXTRA_PACKAGE_NAME, app.packageName)
                 startActivity(intent)
             }
+
+            // ── Last Scan card ──
+            val currentSession = ScanSession.create(apps, scanDuration)
+            updateLastScanCard(currentSession)
+
+            // ── ScanDiff banner ──
+            // val previousSession = loadPreviousSession()  // from SharedPrefs/Room
+            // if (previousSession != null) {
+            //     val diff = ScanDiff.compute(previousSession, currentSession)
+            //     showScanDiffBanner(diff)
+            // }
+            // saveScanSession(currentSession)
+
+            // ── Recent Activity ──
+            // val recentEvents = PrivacyMonitorService.getRecentEvents(10)
+            // showRecentActivity(recentEvents)
         }
         */
 
-        // TEMPORARY placeholder so app doesn't crash while others are coding
-        tvLoading.text = "⏳ Waiting for other modules..."
-        tvHigh.text = "🔴 0\nHIGH"
-        tvMed.text  = "🟠 0\nMEDIUM"
-        tvLow.text  = "🟢 0\nLOW"
+        // PLACEHOLDER — remove when Member 2 is ready
+        tvLoading.text = "⏳ Waiting for scan modules..."
+        tvHigh.text = "0"
+        tvMed.text  = "0"
+        tvLow.text  = "0"
+    }
+
+    // ── Last Scan Card ──
+    fun updateLastScanCard(session: ScanSession) {
+        val card = findViewById<View>(R.id.cardLastScan) ?: return
+        card.visibility = View.VISIBLE
+
+        val tvScanScore    = findViewById<TextView>(R.id.tvScanDeviceScore) ?: return
+        val tvScanDuration = findViewById<TextView>(R.id.tvScanDuration) ?: return
+        val tvScanLevel    = findViewById<TextView>(R.id.tvScanRiskLevel) ?: return
+
+        tvScanScore.text = "${session.deviceRiskScore}/100"
+        tvScanScore.setTextColor(session.deviceRiskScore.toRiskColor())
+        tvScanLevel.text = "${session.deviceRiskScore.toRiskEmoji()} ${session.deviceRiskLevel}"
+        tvScanDuration.text = "Scan took ${session.scanDurationMs}ms • ${session.apps.size} apps"
+    }
+
+    // ── ScanDiff dismissable banner ──
+    fun showScanDiffBanner(diff: ScanDiff) {
+        val banner = findViewById<androidx.cardview.widget.CardView>(R.id.cardScanDiff) ?: return
+        val tvDiff = findViewById<TextView>(R.id.tvScanDiffText) ?: return
+        val btnDismiss = findViewById<TextView>(R.id.btnDismissDiff) ?: return
+
+        banner.visibility = View.VISIBLE
+        tvDiff.text = diff.toSummaryText()
+        btnDismiss.setOnClickListener { banner.visibility = View.GONE }
+    }
+
+    // ── Recent Activity from PrivacyMonitorService ──
+    fun showRecentActivity(events: List<MonitorEvent>) {
+        val container = findViewById<LinearLayout>(R.id.recentActivityContainer) ?: return
+        val section   = findViewById<View>(R.id.sectionRecentActivity) ?: return
+
+        if (events.isEmpty()) return
+        section.visibility = View.VISIBLE
+        container.removeAllViews()
+
+        events.take(10).forEach { event ->
+            val row = layoutInflater.inflate(R.layout.item_monitor_event, container, false)
+
+            row.findViewById<TextView>(R.id.tvEventAppName).text = event.appName
+            row.findViewById<TextView>(R.id.tvEventCategory).text = event.category.emoji
+            row.findViewById<TextView>(R.id.tvEventPermission).text =
+                event.permissionTriggered.substringAfterLast(".")
+            row.findViewById<TextView>(R.id.tvEventTimestamp).text =
+                event.timestamp.toReadableTimestamp()
+
+            val bgBadge = row.findViewById<TextView>(R.id.tvEventBgBadge)
+            if (event.wasBackground) {
+                bgBadge.visibility = View.VISIBLE
+                bgBadge.text = "BG"
+            } else {
+                bgBadge.visibility = View.GONE
+            }
+
+            container.addView(row)
+        }
+    }
+
+    // ── Export full report ──
+    private fun exportFullReport() {
+        // TODO: wire up when Member 2 is merged
+        // val report = AppProcessor.generateReport(apps, recentEvents)
+        // val text = report.toShareableText()
+
+        val placeholderText = "SentinelX Privacy Report\n\nRun a full scan first to generate report."
+        val shareIntent = Intent(Intent.ACTION_SEND)
+            .setType("text/plain")
+            .putExtra(Intent.EXTRA_TEXT, placeholderText)
+            .putExtra(Intent.EXTRA_SUBJECT, "SentinelX Full Privacy Report")
+        startActivity(Intent.createChooser(shareIntent, "Export Report"))
+    }
+
+    private fun setupToolbarButtons() {
+        findViewById<TextView>(R.id.btnExportReport)?.setOnClickListener {
+            exportFullReport()
+        }
+        findViewById<TextView>(R.id.btnOpenSettings)?.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
     }
 
     private fun setupQuickControls() {

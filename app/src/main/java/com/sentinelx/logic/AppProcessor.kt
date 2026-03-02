@@ -34,7 +34,16 @@ object AppProcessor {
                 riskExplanation = RiskScoreEngine.generateRiskExplanation(
                     sensitivePermissions,
                     score
-                )
+                ),
+                riskHistory = emptyList(),
+                recentlyGrantedPermissions = emptyList(),
+                recentlyRevokedPermissions = emptyList(),
+                usesInternet = raw.grantedPermissions.contains("android.permission.INTERNET"),
+                networkUsageToday = 0L,
+                batteryUsagePercent = 0.0,
+                anomalies = emptyList(),
+                autoRevokeSuggested = score >= Constants.RISK_HIGH_THRESHOLD,
+                lastUsedTimestamp = raw.lastUpdateTime
             )
         }.sortedByDescending { it.riskScore }
 
@@ -61,28 +70,28 @@ object AppProcessor {
             else 0
 
         val criticalApps =
-            apps.filter { it.riskLevel == Constants.RISK_HIGH }
+            apps.filter { it.riskLevel == Constants.RISK_CRITICAL }
 
         val highRiskApps =
-            apps.filter { it.riskLevel == Constants.RISK_MEDIUM }
+            apps.filter { it.riskLevel == Constants.RISK_HIGH }
 
         val autoRevokeSuggestions =
-            apps.filter { it.riskScore >= Constants.RISK_HIGH_THRESHOLD && it.permissionUsageDurations.isEmpty() }
-
-        val topPermissionsByUsage =
-            recentEvents.groupingBy { it.permission }
-                .eachCount()
-                .entries
-                .sortedByDescending { it.value }
-                .map { it.key }
-                .take(5)
+            apps.filter { it.autoRevokeSuggested }
 
         return PrivacyReport(
-            deviceRiskScore = deviceRiskScore,
+            generatedAt = System.currentTimeMillis(),
+            totalAppsScanned = apps.size,
             criticalApps = criticalApps,
             highRiskApps = highRiskApps,
+            totalAnomalies = apps.sumOf { it.anomalies.size },
+            recentMonitorEvents = recentEvents.takeLast(50),
             autoRevokeSuggestions = autoRevokeSuggestions,
-            topPermissionsByUsage = topPermissionsByUsage
+            topPermissionsByUsage = recentEvents
+                .groupingBy { it.permissionTriggered }
+                .eachCount()
+                .mapValues { it.value.toLong() },
+            deviceRiskScore = deviceRiskScore,
+            deviceRiskLevel = RiskScoreEngine.determineRiskLevel(deviceRiskScore)
         )
     }
 }

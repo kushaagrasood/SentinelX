@@ -4,269 +4,274 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0A0A1A">
+    android:background="#0A0A1A"
+    android:fitsSystemWindows="true">
 
-    <!-- ── TOP BAR ── -->
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="12dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:src="@drawable/ic_shield"
-            android:layout_marginEnd="10dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="SentinelX"
-            android:textColor="#00E5FF"
-            android:textSize="20sp"
-            android:fontFamily="sans-serif-light"
-            android:letterSpacing="0.15"/>
-
-        <TextView
-            android:id="@+id/tvLoading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#66FFFFFF"
-            android:textSize="11sp"
-            android:fontFamily="sans-serif"/>
-
-    </LinearLayout>
-
-    <!-- ── RISK SUMMARY CARDS ── -->
-    <LinearLayout
-        android:id="@+id/summaryCards"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingBottom="12dp"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- HIGH card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            app:cardBackgroundColor="#1A1A2E"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="8dp">
-
-                <View
-                    android:layout_width="32dp"
-                    android:layout_height="3dp"
-                    android:background="#E53935"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvHighCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="#E53935"
-                    android:textSize="22sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="HIGH"
-                    android:textColor="#66FFFFFF"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.1"/>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- MEDIUM card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            app:cardBackgroundColor="#1A1A2E"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="8dp">
-
-                <View
-                    android:layout_width="32dp"
-                    android:layout_height="3dp"
-                    android:background="#FB8C00"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvMedCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="#FB8C00"
-                    android:textSize="22sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MEDIUM"
-                    android:textColor="#66FFFFFF"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.1"/>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- LOW card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            app:cardBackgroundColor="#1A1A2E"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="8dp">
-
-                <View
-                    android:layout_width="32dp"
-                    android:layout_height="3dp"
-                    android:background="#43A047"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvLowCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="#43A047"
-                    android:textSize="22sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="LOW"
-                    android:textColor="#66FFFFFF"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.1"/>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <!-- ── QUICK CONTROLS ── -->
-    <LinearLayout
-        android:id="@+id/quickControls"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingBottom="12dp"
-        app:layout_constraintTop_toBottomOf="@id/summaryCards"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <Button
-            android:id="@+id/btnToggleCamera"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            android:text="📷 Camera"
-            android:textSize="11sp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#1A1A2E"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
-
-        <Button
-            android:id="@+id/btnToggleMic"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            android:text="🎤 Mic"
-            android:textSize="11sp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#1A1A2E"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
-
-        <Button
-            android:id="@+id/btnToggleLocation"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            android:text="📍 Location"
-            android:textSize="11sp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#1A1A2E"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
-
-    </LinearLayout>
-
-    <!-- ── SECTION LABEL ── -->
-    <TextView
-        android:id="@+id/tvAppsLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="INSTALLED APPS"
-        android:textColor="#4400E5FF"
-        android:textSize="11sp"
-        android:fontFamily="sans-serif-medium"
-        android:letterSpacing="0.2"
-        android:paddingHorizontal="20dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/quickControls"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- ── APP LIST ── -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/headerScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingHorizontal="12dp"
-        android:paddingBottom="16dp"
-        android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/tvAppsLabel"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── TOP BAR ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="12dp">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_shield"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="SentinelX"
+                    android:textColor="#00E5FF"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-light"
+                    android:letterSpacing="0.15"/>
+
+                <TextView
+                    android:id="@+id/btnExportReport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📤"
+                    android:textSize="18sp"
+                    android:paddingHorizontal="8dp"
+                    android:background="?attr/selectableItemBackground"/>
+
+                <TextView
+                    android:id="@+id/btnOpenSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚙️"
+                    android:textSize="18sp"
+                    android:paddingHorizontal="8dp"
+                    android:background="?attr/selectableItemBackground"/>
+
+                <TextView
+                    android:id="@+id/tvLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#66FFFFFF"
+                    android:textSize="11sp"/>
+
+            </LinearLayout>
+
+            <!-- ── SCAN DIFF BANNER (dismissable) ── -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardScanDiff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#1A1A0A"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="6dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="📊 Since Last Scan"
+                            android:textColor="#FFA500"
+                            android:textSize="12sp"
+                            android:fontFamily="sans-serif-medium"/>
+
+                        <TextView
+                            android:id="@+id/btnDismissDiff"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✕"
+                            android:textColor="#44FFFFFF"
+                            android:textSize="14sp"
+                            android:background="?attr/selectableItemBackground"
+                            android:padding="4dp"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvScanDiffText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="12sp"
+                        android:lineSpacingMultiplier="1.4"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ── RISK SUMMARY CARDS ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="8dp">
+
+                <androidx.cardview.widget.CardView android:layout_width="0dp" android:layout_height="80dp" android:layout_weight="1" android:layout_marginHorizontal="4dp" app:cardBackgroundColor="#1A1A2E" app:cardCornerRadius="12dp" app:cardElevation="4dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:padding="8dp">
+                        <View android:layout_width="32dp" android:layout_height="3dp" android:background="#E53935" android:layout_marginBottom="8dp"/>
+                        <TextView android:id="@+id/tvHighCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#E53935" android:textSize="22sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HIGH" android:textColor="#66FFFFFF" android:textSize="10sp" android:letterSpacing="0.1"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView android:layout_width="0dp" android:layout_height="80dp" android:layout_weight="1" android:layout_marginHorizontal="4dp" app:cardBackgroundColor="#1A1A2E" app:cardCornerRadius="12dp" app:cardElevation="4dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:padding="8dp">
+                        <View android:layout_width="32dp" android:layout_height="3dp" android:background="#FB8C00" android:layout_marginBottom="8dp"/>
+                        <TextView android:id="@+id/tvMedCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#FB8C00" android:textSize="22sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MEDIUM" android:textColor="#66FFFFFF" android:textSize="10sp" android:letterSpacing="0.1"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView android:layout_width="0dp" android:layout_height="80dp" android:layout_weight="1" android:layout_marginHorizontal="4dp" app:cardBackgroundColor="#1A1A2E" app:cardCornerRadius="12dp" app:cardElevation="4dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:padding="8dp">
+                        <View android:layout_width="32dp" android:layout_height="3dp" android:background="#43A047" android:layout_marginBottom="8dp"/>
+                        <TextView android:id="@+id/tvLowCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#43A047" android:textSize="22sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LOW" android:textColor="#66FFFFFF" android:textSize="10sp" android:letterSpacing="0.1"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <!-- ── LAST SCAN CARD ── -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardLastScan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#1A1A2E"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="14dp">
+
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LAST SCAN" android:textColor="#4400E5FF" android:textSize="10sp" android:letterSpacing="0.15" android:layout_marginBottom="4dp"/>
+                        <TextView android:id="@+id/tvScanRiskLevel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🟢 LOW" android:textColor="#CCFFFFFF" android:textSize="15sp" android:fontFamily="sans-serif-medium"/>
+                        <TextView android:id="@+id/tvScanDuration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Scan took 0ms" android:textColor="#44FFFFFF" android:textSize="11sp" android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvScanDeviceScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0/100"
+                        android:textColor="#43A047"
+                        android:textSize="26sp"
+                        android:fontFamily="sans-serif-light"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ── QUICK CONTROLS ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="8dp">
+
+                <Button android:id="@+id/btnToggleCamera" android:layout_width="0dp" android:layout_height="40dp" android:layout_weight="1" android:layout_marginHorizontal="4dp" android:text="📷 Camera" android:textSize="11sp" android:textColor="#FFFFFF" android:backgroundTint="#1A1A2E" style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                <Button android:id="@+id/btnToggleMic" android:layout_width="0dp" android:layout_height="40dp" android:layout_weight="1" android:layout_marginHorizontal="4dp" android:text="🎤 Mic" android:textSize="11sp" android:textColor="#FFFFFF" android:backgroundTint="#1A1A2E" style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                <Button android:id="@+id/btnToggleLocation" android:layout_width="0dp" android:layout_height="40dp" android:layout_weight="1" android:layout_marginHorizontal="4dp" android:text="📍 Location" android:textSize="11sp" android:textColor="#FFFFFF" android:backgroundTint="#1A1A2E" style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+            </LinearLayout>
+
+            <!-- ── RECENT ACTIVITY ── -->
+            <LinearLayout
+                android:id="@+id/sectionRecentActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RECENT ACTIVITY"
+                    android:textColor="#4400E5FF"
+                    android:textSize="11sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.2"
+                    android:paddingHorizontal="20dp"
+                    android:paddingBottom="6dp"/>
+
+                <LinearLayout
+                    android:id="@+id/recentActivityContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="12dp"
+                    android:paddingBottom="8dp"/>
+
+            </LinearLayout>
+
+            <!-- ── INSTALLED APPS LABEL ── -->
+            <TextView
+                android:id="@+id/tvAppsLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="INSTALLED APPS"
+                android:textColor="#4400E5FF"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.2"
+                android:paddingHorizontal="20dp"
+                android:paddingBottom="8dp"/>
+
+            <!-- ── APP LIST ── -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
